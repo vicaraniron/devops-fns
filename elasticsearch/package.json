@@ -1,0 +1,18 @@
+{
+  "name": "elasticsearch-operations",
+  "version": "1.0.0",
+  "description": "Elasticsearch Operations",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.135.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "serverless-webpack": "^2.2.0",
+    "webpack": "^3.3.0"
+  }
+}

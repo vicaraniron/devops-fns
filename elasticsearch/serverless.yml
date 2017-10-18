@@ -1,0 +1,27 @@
+service:
+  name: elasticsearch
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 'es:ESHttpPut'
+      Resource:
+        // TODO factor out env (i.e. dev)
+        - '${cf:dev-geolocation-elasticsearch.DomainArn}/*'
+
+package:
+  individually: true
+
+functions:
+  createIndex:
+    handler: createIndex.handler
+  deleteIndex:
+    handler: deleteIndex.handler
+  migrateIndex:
+    handler: migrateIndex.handler
