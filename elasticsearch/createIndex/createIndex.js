@@ -62,8 +62,7 @@ module.exports.createIndex = (event, context, callback) => {
 
   const endpoint = new AWS.Endpoint(process.env.elasticsearchUrl)
 
-  const req = new AWS.HttpRequest()
-  req.endpoint = endpoint
+  const req = new AWS.HttpRequest(endpoint)
   req.method = 'PUT'
   req.path = '/partner-location'
   req.region = 'us-east-1'

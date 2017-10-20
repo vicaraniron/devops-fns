@@ -1,27 +1,35 @@
-service:
-  name: elasticsearch
+service: elasticsearch
+
+frameworkVersion: ">=1.0.0 <2.0.0"
 
 plugins:
   - serverless-webpack
 
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
 provider:
   name: aws
   runtime: nodejs6.10
+  stage: dev
+  environment: ${file(serverless-${self:custom.stage}.env.yml)}
   iamRoleStatements:
     - Effect: Allow
       Action:
         - 'es:ESHttpPut'
       Resource:
-        // TODO factor out env (i.e. dev)
-        - '${cf:dev-geolocation-elasticsearch.DomainArn}/*'
+        - '${cf:${self:custom.stage}-geolocation-elasticsearch.DomainArn}/*'
 
 package:
   individually: true
 
 functions:
   createIndex:
-    handler: createIndex.handler
+    handler: createIndex/createIndex.handler
+    environment: ${file(createIndex/createIndex-${self:custom.stage}.env.yml)}
   deleteIndex:
-    handler: deleteIndex.handler
+    handler: deleteIndex/deleteIndex.handler
+    environment: ${file(deleteIndex/deleteIndex-${self:custom.stage}.env.yml)}
   migrateIndex:
-    handler: migrateIndex.handler
+    handler: migrateIndex/migrateIndex.handler
+    environment: ${file(migrateIndex/migrateIndex-${self:custom.stage}.env.yml)}
